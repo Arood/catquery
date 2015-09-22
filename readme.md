@@ -10,7 +10,7 @@ For now simply download or link to the [CDN of the minified catQuery file](https
 
 ## 📖 Documentation
 
-You can documentation on [the website](http://catquery.io/docs/) or in [the source](https://cdn.rawgit.com/Arood/catquery/catquery.js).
+You can documentation on [the website](http://catquery.io/docs/) or in [the source](https://cdn.rawgit.com/Arood/catquery/master/catquery.min.js).
 
 ## 🔨 Contributing
 
