@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>catquery.js - docs</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <script src="https://todoc.at/webfonts.js"></script>
+  <link rel="stylesheet" media="all" href="/assets/style.css" />
+</head>
+<body>
+  <div class="head">
+    <a href="/" class="logo">catQuery</a>
+    <ul class="nav">
+      <li><a href="/docs/">Docs</a></li>
+      <li><a href="/tests/">Tests</a></li>
+      <li><a href="https://github.com/Arood/catquery">GitHub</a></li>
+    </ul>
+  </div>
+  <div id="container">
+    <ul class="sections">
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>catQuery is a tiny library that makes working with HTML less painful. It’s
+heavily inspired by jQuery, but focuses on being a wrapper for the modern
+but still convoluted DOM API:s. Therefore it should not be seen as a drop-in
+replacement for jQuery, as the API will probably work differently even
+though they may look alike.</p>
+<h2 id="api">API</h2>
+<ul>
+<li><a href="#section-2">catQuery()</a></li>
+<li><strong><a href="#section-3">Core</a></strong><ul>
+<li><a href="#section-4">catQuery.extend()</a></li>
+<li><a href="#section-5">catQuery.create()</a></li>
+<li><a href="#section-6">catQuery.one()</a></li>
+<li><a href="#section-7">catQuery.each()</a></li>
+<li><a href="#section-7">.each()</a></li>
+</ul>
+</li>
+<li><strong><a href="#section-8">Prototype</a></strong><ul>
+<li><a href="#section-9">.length</a></li>
+<li><a href="#section-10">.node</a></li>
+<li><a href="#section-11">.nodes</a></li>
+<li><a href="#section-12">.append()</a></li>
+<li><a href="#section-13">.prepend()</a></li>
+<li><a href="#section-14">.before()</a></li>
+<li><a href="#section-15">.after()</a></li>
+<li><a href="#section-16">.remove()</a></li>
+<li><a href="#section-17">.attr()</a></li>
+<li><a href="#section-19">.addClass()</a></li>
+<li><a href="#section-20">.removeClass()</a></li>
+<li><a href="#section-21">.hasClass()</a></li>
+<li><a href="#section-22">.css()</a></li>
+<li><a href="#section-23">.on()</a></li>
+<li><a href="#section-24">.click()</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">document, undefined</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h3 id="catquery-selector-">catQuery(<code>selector</code>)</h3>
+<p>Entering a string with a query selector will search the DOM with
+<code>document.querySelectorAll</code> and transform the result into a catQuery
+collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">'.my-div'</span>);
+</code></pre><h3 id="catquery-html-">catQuery(<code>html</code>)</h3>
+<p>If the string contains HTML (simply matched by if the string starts
+with <code>&lt;</code> or not), catQuery will turn this into a DOM element or
+fragment, and transform that result into a catQuery collection. Read more
+about HTML creation further down.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">'&lt;div class="my-div"&gt;Lorem ipsum&lt;/div&gt;'</span>);
+</code></pre><h3 id="catquery-elements-">catQuery(<code>elements</code>)</h3>
+<p>Passing an element, a DOM fragment or NodeList will turn it into a
+catQuery collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">".my-div"</span>));
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  <span class="hljs-keyword">var</span> catQuery = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> a === <span class="hljs-string">"string"</span>) {
+
+      <span class="hljs-keyword">if</span> (a.charAt(<span class="hljs-number">0</span>) === <span class="hljs-string">"&lt;"</span>) {
+        <span class="hljs-keyword">return</span> catQuery.create(a);
+      } <span class="hljs-keyword">else</span> {
+        a = <span class="hljs-built_in">document</span>.querySelectorAll(a);
+      }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> catQuery.fn.init(a);
+
+  };
+
+  catQuery.fn = catQuery.prototype = {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="core">Core</h2>
+<p>These are methods and stuff that can be accessed without having to create
+a set first. Some of the methods are available in sets also though, these
+functions are documented without “catQuery” as the prefix, like <code>extend</code>
+below.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h3 id="catquery-extend-objects-">catQuery.extend(<code>objects...</code>)</h3>
+<p>This function is used to extend an object with properties from one or more
+other objects. The first parameter is the target, which will get the new
+properties.</p>
+<p>If you enter a single property, the object will be merged into catQuery
+itself. You can also use this on <code>catQuery.fn</code>, if you want to add your own
+plugins jQuery-style.</p>
+<p>Examples:</p>
+<pre><code>catQuery.extend({
+  randomElement: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> all = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">"*"</span>);
+    <span class="hljs-keyword">var</span> el = all[<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random()*all.length)];
+    <span class="hljs-keyword">return</span> catQuery(el);
+  }
+});
+<span class="hljs-comment">// You can now use catQuery.randomElement()</span>
+</code></pre><pre><code><span class="hljs-keyword">var</span> obj = { hello: <span class="hljs-string">"world"</span> };
+catQuery.extend(obj, {
+  hello: <span class="hljs-string">"Reno"</span>
+});
+obj.hello
+<span class="hljs-comment">// › Reno</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  catQuery.extend = catQuery.fn.extend = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> options, name, src, copy, target = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>] || {}, length = <span class="hljs-built_in">arguments</span>.length;
+    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {
+        <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] = target;
+        target = <span class="hljs-keyword">this</span>;
+        length++;
+    }
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;length; i++) {
+      <span class="hljs-keyword">if</span> ((options = <span class="hljs-built_in">arguments</span>[i]) !== <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">for</span> (name <span class="hljs-keyword">in</span> options) {
+          <span class="hljs-keyword">if</span> (options.hasOwnProperty(name)) {
+            src = target[name];
+            copy = options[name];
+            <span class="hljs-keyword">if</span> (target === copy) {
+              <span class="hljs-keyword">continue</span>;
+            }
+            <span class="hljs-keyword">if</span> (copy !== <span class="hljs-literal">undefined</span>) {
+              target[name] = copy;
+            }
+          }
+        }
+      }
+    }
+    <span class="hljs-keyword">return</span> target;
+  };
+
+  catQuery.extend({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h3 id="catquery-create-html-">catQuery.create(<code>html</code>)</h3>
+<p>Turns a string into real HTML elements and returns it as a catQuery set.
+If the string <strong>doesn’t</strong> start with a <code>&lt;</code>, it will run as a shorthand
+for <code>document.createElement</code> instead.</p>
+<p>Examples:</p>
+<pre><code><span class="hljs-keyword">var</span> el = catQuery.create(<span class="hljs-string">'&lt;div class="things"&gt;&lt;/div&gt;'</span>);
+</code></pre><pre><code><span class="hljs-keyword">var</span> el = catQuery.create(<span class="hljs-string">'div'</span>);
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    create: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">html</span>) </span>{
+      <span class="hljs-keyword">if</span> (html.charAt(<span class="hljs-number">0</span>) !== <span class="hljs-string">"&lt;"</span>) {
+        <span class="hljs-keyword">return</span> catQuery(<span class="hljs-built_in">document</span>.createElement(html));
+      }
+      <span class="hljs-keyword">var</span> map = {
+        legend: [<span class="hljs-number">1</span>, <span class="hljs-string">'&lt;fieldset&gt;'</span>, <span class="hljs-string">'&lt;/fieldset&gt;'</span>],
+        tr: [<span class="hljs-number">2</span>, <span class="hljs-string">'&lt;table&gt;&lt;tbody&gt;'</span>, <span class="hljs-string">'&lt;/tbody&gt;&lt;/table&gt;'</span>],
+        col: [<span class="hljs-number">2</span>, <span class="hljs-string">'&lt;table&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;colgroup&gt;'</span>, <span class="hljs-string">'&lt;/colgroup&gt;&lt;/table&gt;'</span>],
+        _default: [<span class="hljs-number">0</span>, <span class="hljs-string">''</span>, <span class="hljs-string">''</span>]
+      };
+
+      map.td = map.th = [<span class="hljs-number">3</span>, <span class="hljs-string">'&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;'</span>, <span class="hljs-string">'&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;'</span>];
+
+      map.option = map.optgroup = [<span class="hljs-number">1</span>, <span class="hljs-string">'&lt;select multiple="multiple"&gt;'</span>, <span class="hljs-string">'&lt;/select&gt;'</span>];
+
+      map.thead =
+      map.tbody =
+      map.colgroup =
+      map.caption =
+      map.tfoot = [<span class="hljs-number">1</span>, <span class="hljs-string">'&lt;table&gt;'</span>, <span class="hljs-string">'&lt;/table&gt;'</span>];
+
+      map.text =
+      map.circle =
+      map.ellipse =
+      map.line =
+      map.path =
+      map.polygon =
+      map.polyline =
+      map.rect = [<span class="hljs-number">1</span>, <span class="hljs-string">'&lt;svg xmlns="http://www.w3.org/2000/svg" version="1.1"&gt;'</span>,<span class="hljs-string">'&lt;/svg&gt;'</span>];
+
+      <span class="hljs-keyword">if</span> (<span class="hljs-string">'string'</span> !== <span class="hljs-keyword">typeof</span> html) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'String expected'</span>);
+
+      <span class="hljs-keyword">var</span> m = <span class="hljs-regexp">/&lt;([\w:]+)/</span>.exec(html);
+      <span class="hljs-keyword">if</span> (!m) <span class="hljs-keyword">return</span> <span class="hljs-built_in">document</span>.createTextNode(html);
+
+      html = html.replace(<span class="hljs-regexp">/^\s+|\s+$/g</span>, <span class="hljs-string">''</span>);
+
+      <span class="hljs-keyword">var</span> tag = m[<span class="hljs-number">1</span>], el;
+
+      <span class="hljs-keyword">if</span> (tag === <span class="hljs-string">'body'</span>) {
+        el = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'html'</span>);
+        el.innerHTML = html;
+        <span class="hljs-keyword">return</span> el.removeChild(el.lastChild);
+      }
+
+      <span class="hljs-keyword">var</span> wrap = map[tag] || map._default;
+      <span class="hljs-keyword">var</span> depth = wrap[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">var</span> prefix = wrap[<span class="hljs-number">1</span>];
+      <span class="hljs-keyword">var</span> suffix = wrap[<span class="hljs-number">2</span>];
+      el = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+      el.innerHTML = prefix + html + suffix;
+      <span class="hljs-keyword">while</span> (depth--) el = el.lastChild;
+
+      <span class="hljs-keyword">if</span> (el.firstChild == el.lastChild) {
+        <span class="hljs-keyword">return</span> catQuery(el.removeChild(el.firstChild));
+      }
+
+      <span class="hljs-keyword">return</span> catQuery(el.childNodes);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h3 id="catquery-one-selector-">catQuery.one(<code>selector</code>)</h3>
+<p>Find a single element (with <code>document.querySelector</code>) and create a
+catQuery collection with it.</p>
+<pre><code>catQuery.one(<span class="hljs-string">"div"</span>).length
+<span class="hljs-comment">// › 1</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    one: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> catQuery.fn.init(<span class="hljs-built_in">document</span>.querySelector(a));
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h3 id="catquery-each-object-callback-br-each-callback-">catQuery.each(<code>object</code>, <code>callback</code>) <br> .each(<code>callback</code>)</h3>
+<p>Loops through an array or object, or each element if used with a
+collection.</p>
+<p>The callback always has 2 parameters, the first being the object key or
+array index, and the second being the value or the collection element.</p>
+<p>Note that collection elements are <strong>not</strong> wrapped in a catQuery object.</p>
+<p>Examples:</p>
+<pre><code>catQuery.each([<span class="hljs-string">"hello"</span>, <span class="hljs-string">"world"</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, value</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(value);
+});
+<span class="hljs-comment">// › hello</span>
+<span class="hljs-comment">// › world</span>
+</code></pre><pre><code>catQuery(<span class="hljs-string">"&lt;div&gt;Hello&lt;/div&gt;&lt;div&gt;Elena&lt;/div&gt;"</span>)
+.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(el.innerText);
+});
+<span class="hljs-comment">// › Hello</span>
+<span class="hljs-comment">// › Elena</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    each: catQuery.fn.each = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">this</span>.nodes ? <span class="hljs-keyword">this</span>.nodes : <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>],
+          i=<span class="hljs-number">0</span>,
+          l=arr.length,
+          cb=<span class="hljs-built_in">arguments</span>.length == <span class="hljs-number">2</span> ? <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] : <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> l === <span class="hljs-string">"function"</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"Collection is not an array-like object"</span>);
+      }
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> cb !== <span class="hljs-string">"function"</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"No callback function provided"</span>);
+      }
+      <span class="hljs-keyword">if</span> (l !== <span class="hljs-literal">undefined</span>) {
+        <span class="hljs-keyword">for</span> (; i&lt;l; i++) {
+          <span class="hljs-keyword">if</span> (cb.call(arr[i], i, arr[i]) === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">break</span>;
+          }
+        }
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> arr) {
+          <span class="hljs-keyword">if</span> (cb.call(arr[i], i, arr[i]) === <span class="hljs-literal">false</span>) {
+            <span class="hljs-keyword">break</span>;
+          }
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.nodes ? <span class="hljs-keyword">this</span> : <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>];
+    }
+
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h2 id="prototype">Prototype</h2>
+<p>Here are the properties and methods that will be added to each catQuery
+collection that has been created.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  catQuery.fn.extend({
+    constructor: catQuery,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h3 id="-length">.length</h3>
+<p>Number of elements in the current collection.</p>
+<p>Example:</p>
+<pre><code><span class="hljs-keyword">if</span> (catQuery(<span class="hljs-string">".things"</span>).length &gt; <span class="hljs-number">0</span>) {
+  <span class="hljs-comment">// .things exists, so we can do something with it</span>
+}
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    length: <span class="hljs-number">0</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h3 id="-node">.node</h3>
+<p>The first available node in the collection. Useful if you want to
+quickly find a single element to pass to another library.</p>
+<p>Example:</p>
+<pre><code>jQuery(catQuery(<span class="hljs-string">".my-div"</span>).node) <span class="hljs-comment">// lol</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    node: <span class="hljs-literal">null</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h3 id="-nodes">.nodes</h3>
+<p>An array with all nodes in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"div"</span>).nodes[<span class="hljs-number">2</span>];
+<span class="hljs-comment">// gets the third element in the collection</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    nodes: [],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h3 id="-append-element-">.append(<code>element</code>)</h3>
+<p>Inserts the specified element at the end of the first element in the
+collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;"</span>).append(catQuery(<span class="hljs-string">"&lt;c/&gt;"</span>));
+<span class="hljs-comment">// › &lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;c&gt;&lt;/c&gt;&lt;/a&gt;</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    append: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      el = el <span class="hljs-keyword">instanceof</span> catQuery ? el.node : el;
+      <span class="hljs-keyword">this</span>.node.appendChild(el);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h3 id="-prepend-element-">.prepend(<code>element</code>)</h3>
+<p>Inserts the specified element as the first child of the first element
+in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;"</span>).prepend(catQuery(<span class="hljs-string">"&lt;c/&gt;"</span>));
+<span class="hljs-comment">// › &lt;a&gt;&lt;c&gt;&lt;/c&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    prepend: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      el = el <span class="hljs-keyword">instanceof</span> catQuery ? el.node : el;
+      <span class="hljs-keyword">this</span>.node.insertBefore(el, <span class="hljs-keyword">this</span>.node.firstChild);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h3 id="-before-element-">.before(<code>element</code>)</h3>
+<p>Inserts the specified element before the first element in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"&lt;a/&gt;"</span>).before(catQuery(<span class="hljs-string">"&lt;b/&gt;"</span>));
+<span class="hljs-comment">// › &lt;b&gt;&lt;/b&gt;&lt;a&gt;&lt;/a&gt;</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    before: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      el = el <span class="hljs-keyword">instanceof</span> catQuery ? el.node : el;
+      <span class="hljs-keyword">this</span>.node.parentNode.insertBefore(el, <span class="hljs-keyword">this</span>.node);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h3 id="-after-element-">.after(<code>element</code>)</h3>
+<p>Inserts the specified element after the first element in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"&lt;a/&gt;"</span>).after(catQuery(<span class="hljs-string">"&lt;b/&gt;"</span>));
+<span class="hljs-comment">// › &lt;a&gt;&lt;/a&gt;&lt;b&gt;&lt;/b&gt;</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    after: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      el = el <span class="hljs-keyword">instanceof</span> catQuery ? el.node : el;
+      <span class="hljs-keyword">this</span>.node.parentNode.insertBefore(el, <span class="hljs-keyword">this</span>.node.nextSibling);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h3 id="-remove-">.remove()</h3>
+<p>Removes each element in the collection from the DOM.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"div"</span>).remove();
+<span class="hljs-comment">// All divs are gone now!</span>
+<span class="hljs-comment">// (you probably shouldn't use it like that)</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    remove: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        el.parentNode.removeChild(el);
+      });
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h3 id="-attr-name-value-br-attr-object-">.attr(<code>name</code>, <code>value</code>) <br> .attr(<code>object</code>)</h3>
+<p>Sets one or more attributes to all elements in the collection. You can
+use two string parameters where the first is the attribute name and the
+second is the value. If you want to send several attributes you can use
+an object where keys are attribute names and values are values.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"div"</span>).attr(<span class="hljs-string">"class"</span>, <span class="hljs-string">"kittens"</span>);
+</code></pre><pre><code>catQuery(<span class="hljs-string">"div"</span>).attr({
+  <span class="hljs-string">"class"</span>: <span class="hljs-string">"kittens"</span>,
+  <span class="hljs-string">"data-id"</span>: <span class="hljs-string">"123"</span>
+});
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    attr: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">arguments</span>;
+      <span class="hljs-keyword">if</span> (args.length === <span class="hljs-number">2</span>) {
+        <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+          el.setAttribute(args[<span class="hljs-number">0</span>], args[<span class="hljs-number">1</span>]);
+        });
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> args[<span class="hljs-number">0</span>] !== <span class="hljs-string">"string"</span>) {
+          <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+          catQuery.each(args[<span class="hljs-number">0</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, value</span>) </span>{
+            self.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+              el.setAttribute(key, value);
+            });
+          });
+        } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h3 id="-attr-name-">.attr(<code>name</code>)</h3>
+<p>If you only send a string parameter, catQuery will return the
+attribute from the first element in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"div"</span>).attr(<span class="hljs-string">"class"</span>);
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.node.getAttribute(args[<span class="hljs-number">0</span>]);
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <h3 id="-addclass-name-">.addClass(<code>name</code>)</h3>
+<p>Adds a class to each element in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"div"</span>).addClass(<span class="hljs-string">"kittens"</span>);
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    addClass: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        el.classList.add(name);
+      });
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h3 id="-removeclass-name-">.removeClass(<code>name</code>)</h3>
+<p>Removes the class from each element in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"div"</span>).removeClass(<span class="hljs-string">"kittens"</span>);
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    removeClass: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        el.classList.remove(name);
+      });
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <h3 id="-hasclass-name-">.hasClass(<code>name</code>)</h3>
+<p>Returns a boolean that’s true if any of the elements in the collection
+has the queried class.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">".kittens"</span>).hasClass(<span class="hljs-string">"kittens"</span>);
+<span class="hljs-comment">// › true</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    hasClass: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+      <span class="hljs-keyword">var</span> found = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        <span class="hljs-keyword">if</span> (el.classList.contains(name)) {
+          found = <span class="hljs-literal">true</span>;
+        }
+      });
+      <span class="hljs-keyword">return</span> found;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h3 id="-css-name-value-br-css-object-">.css(<code>name</code>, <code>value</code>) <br> .css(<code>object</code>)</h3>
+<p>Adds one or multiple styles to the elements in the collection.</p>
+<p><em>Note: At this time, catQuery doesn’t do any automatic mapping for
+cross-browser support of style names.</em></p>
+<p>Examples:</p>
+<pre><code>catQuery(<span class="hljs-string">'p'</span>).css(<span class="hljs-string">"color"</span>, <span class="hljs-string">"red"</span>);
+</code></pre><pre><code>catQuery(<span class="hljs-string">'p'</span>).css({
+  color: <span class="hljs-string">"red"</span>,
+  backgroundColor: <span class="hljs-string">"#0f0"</span>
+});
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    css: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, value</span>) </span>{
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> name === <span class="hljs-string">"string"</span>) {
+          <span class="hljs-keyword">try</span> {
+            el.style[name] = value;
+          } <span class="hljs-keyword">catch</span> (e) {}
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> name === <span class="hljs-string">"object"</span>) {
+          catQuery.each(name, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n,v</span>) </span>{
+            <span class="hljs-keyword">try</span> {
+              el.style[n] = v;
+            } <span class="hljs-keyword">catch</span> (e) {}
+          });
+        }
+      });
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h3 id="-on-eventname-callback-">.on(<code>eventName</code>, <code>callback</code>)</h3>
+<p>Adds an event listener to each element in the collection.</p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"a"</span>).on(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  e.preventDefault();
+  alert(<span class="hljs-string">"Nope!"</span>);
+});
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    on: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a,b</span>) </span>{
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        el.addEventListener(a, b);
+      });
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h3 id="-click-callback-">.click(<code>callback</code>)</h3>
+<p>Alias for <code>.on(&#39;click&#39;, callback)</code></p>
+<p>Example:</p>
+<pre><code>catQuery(<span class="hljs-string">"a"</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  e.preventDefault();
+  alert(<span class="hljs-string">"Nope!"</span>);
+});
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    click: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">b</span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.on(<span class="hljs-string">'click'</span>, b);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h3 id="catquery-fn-init-element-">catQuery.fn.init(<code>element</code>)</h3>
+<p>This is the constructor used by catQuery() when creating a collection.
+You should never have to use this by yourself, so I’m not sure why I’m
+even documenting it. Sorry if I confused you. Again, ignore this one,
+it’s used internally.</p>
+<p>I mean, I’m not your dad or anything, so I can’t tell you what to do.
+But please don’t use this. It would kinda kill the point of catQuery.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    init: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      <span class="hljs-keyword">if</span> (el.length !== <span class="hljs-literal">undefined</span>) {
+        <span class="hljs-keyword">this</span>.node = el[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">this</span>.nodes = <span class="hljs-built_in">Array</span>.prototype.slice.call(el);
+        <span class="hljs-keyword">this</span>.length = el.length;
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.node = el;
+        <span class="hljs-keyword">this</span>.nodes = [el];
+        <span class="hljs-keyword">this</span>.length = <span class="hljs-number">1</span>;
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+  });
+
+  catQuery.fn.init.prototype = catQuery.prototype;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Finally, we turn the catQuery variable into a global, so you can actually
+use it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  <span class="hljs-built_in">window</span>.catQuery = catQuery;
+
+})(<span class="hljs-built_in">window</span>.document);
+
+<span class="hljs-comment">/*
+The MIT License (MIT)
+
+Copyright (c) 2015 Marcus Olovsson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>

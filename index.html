@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>catquery.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <script src="https://todoc.at/webfonts.js"></script>
+  <link rel="stylesheet" media="all" href="/assets/style.css" />
+</head>
+<body>
+  <div class="head">
+    <a href="/" class="logo">catQuery</a>
+    <ul class="nav">
+      <li><a href="/docs/">Docs</a></li>
+      <li><a href="/tests/">Tests</a></li>
+      <li><a href="https://github.com/Arood/catquery">GitHub</a></li>
+    </ul>
+  </div>
+
+  <div class="home-content">
+<pre class="intro"><code><span class="hljs-keyword">for</span><span> (</span><span class="hljs-keyword">var</span><span> i=</span><span class="hljs-number">0</span><span>; i&lt;</span><span class="hljs-number">20</span><span>; i++) {</span>
+  <span class="hljs-keyword">var</span><span> cat = $(</span><span class="hljs-string">'&lt;div class="cat"&gt;'</span><span>).css(randoms());</span>
+  <span>cat.node.innerText = </span><span class="hljs-string">"\uD83D\uDC31"</span><span>;</span>
+  <span>$(</span><span class="hljs-string">'body'</span><span>).append(cat);</span>
+<span>}</span><span> </span> </code></pre>
+
+    <p>catQuery is a tiny library<sup>★</sup> that makes working with HTML less painful.</p>
+
+    <p><a href="https://cdn.rawgit.com/Arood/catquery/catquery.min.js" class="button">Download latest</a> <a href="https://github.com/Arood/catquery" class="button">Learn more at GitHub</a></p>
+
+    <p class="footnote"><sup>★</sup> It's not a framework, it's a library. Big difference!</p>
+
+  </div>
+
+  <script src="/catquery.js"></script>
+  <script>
+    var typer = function() {
+      var args = arguments;
+
+      if (args[0].length && args[0].length > 1) {
+        typer(args[0].shift(), function() {
+          typer.apply(null, args);
+        })
+        return;
+      }
+
+      if (args[0].length) {
+        args[0] = args[0][0];
+      }
+
+      var i=0,
+          text = args[0].text,
+          c=text.length,
+          speed=args[0].speed || 50,
+          txt = document.createElement('span'),
+          caret = document.createElement('span');
+      txt.classList.add("typer-text");
+      txt.preservedText = "";
+      caret.classList.add("typer-caret");
+      args[0].el.appendChild(txt);
+      args[0].el.appendChild(caret);
+
+      var type = function() {
+        txt.preservedText += text[i];
+        txt.innerText = txt.preservedText;
+        i++;
+        if (i < c) {
+          setTimeout(type, speed);
+        } else {
+          args[0].el.removeChild(caret);
+          if (args[1]) {
+            args[1]();
+          }
+        }
+      }
+      if (args[0].delay) {
+        setTimeout(type, args[0].delay);
+      } else {
+        type();
+      }
+    };
+
+
+
+    (function($) {
+      var randoms = function() {
+        var rand = [
+          "meow " + (4+Math.random()*6) + "s ease both " + (0.5+Math.random()*2)+"s",
+          "calc("+Math.round(Math.random()*80)+"% + 120px)",
+          Math.round(Math.random()*90+5)+"%",
+          (Math.round(10+Math.random()*30)/10) + "em"
+        ];
+        return {
+          "webkitAnimation": rand[0],
+          "animation": rand[0],
+          "top": rand[1],
+          "left": rand[2],
+          "fontSize": rand[3]
+        };
+      };
+
+      var typerSeq = [];
+      $('.intro span').each(function(i, el) {
+
+        typerSeq.push({
+          el: el,
+          text: el.innerText,
+          speed: 25 + Math.random() * 50,
+          delay: Math.random() * 200
+        });
+        el.innerText = '';
+      });
+      typerSeq[typerSeq.length-1].delay = 1000;
+
+      typer(typerSeq, function() {
+
+        for (var i=0; i<20; i++) {
+          var cat = $('<div class="cat">').css(randoms());
+          cat.node.innerText = "\uD83D\uDC31";
+          $('body').append(cat);
+        }
+
+      })
+
+    })(catQuery);
+  </script>
+
+</body>
+</html>
