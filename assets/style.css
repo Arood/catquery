@@ -98,6 +98,11 @@ a {
   background: #0294a8;
 }
 
+.home-content .footnote {
+  color: rgba(0,0,0,0.25);
+  font-size: 14px;
+}
+
 .intro code {
   text-align: left;
   background: transparent;
