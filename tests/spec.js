@@ -78,6 +78,16 @@ describe("traversing", function() {
 
 });
 
+describe("finding children of elements", function() {
+
+  var test = catQuery('<ul><li></li><li></li></ul><ul><li></li><li></li></ul><ol><li></li><li></li></ol>');
+
+  it("will find the children of all elements in the collection", function() {
+    expect(test.find("li").length).toEqual(6);
+  });
+
+});
+
 describe("working with attributes", function() {
 
   var testElement = c("<div/>");
@@ -153,5 +163,15 @@ describe('modifying the DOM', function() {
     b.after(c);
     expect(a.node.innerHTML).toEqual("<b></b><c></c>");
   });
+
+  it("can set text content of elements", function() {
+    var elements = catQuery('<div></div><div></div>'), test = "";
+
+    elements.text("Hello").each(function(i, el) {
+      test += el.textContent;
+    });
+
+    expect(test).toEqual("HelloHello");
+  })
 
 });

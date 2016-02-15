@@ -37,28 +37,31 @@ though they may look alike.</p>
 <li><a href="#section-2">catQuery()</a></li>
 <li><strong><a href="#section-3">Core</a></strong><ul>
 <li><a href="#section-4">catQuery.extend()</a></li>
-<li><a href="#section-5">catQuery.create()</a></li>
-<li><a href="#section-6">catQuery.one()</a></li>
-<li><a href="#section-7">catQuery.each()</a></li>
-<li><a href="#section-7">.each()</a></li>
+<li><a href="#section-5">catQuery.version</a></li>
+<li><a href="#section-6">catQuery.create()</a></li>
+<li><a href="#section-7">catQuery.one()</a></li>
+<li><a href="#section-8">catQuery.each()</a></li>
+<li><a href="#section-8">.each()</a></li>
 </ul>
 </li>
-<li><strong><a href="#section-8">Prototype</a></strong><ul>
-<li><a href="#section-9">.length</a></li>
-<li><a href="#section-10">.node</a></li>
-<li><a href="#section-11">.nodes</a></li>
-<li><a href="#section-12">.append()</a></li>
-<li><a href="#section-13">.prepend()</a></li>
-<li><a href="#section-14">.before()</a></li>
-<li><a href="#section-15">.after()</a></li>
-<li><a href="#section-16">.remove()</a></li>
-<li><a href="#section-17">.attr()</a></li>
-<li><a href="#section-19">.addClass()</a></li>
-<li><a href="#section-20">.removeClass()</a></li>
-<li><a href="#section-21">.hasClass()</a></li>
-<li><a href="#section-22">.css()</a></li>
-<li><a href="#section-23">.on()</a></li>
-<li><a href="#section-24">.click()</a></li>
+<li><strong><a href="#section-9">Prototype</a></strong><ul>
+<li><a href="#section-10">.length</a></li>
+<li><a href="#section-11">.node</a></li>
+<li><a href="#section-12">.nodes</a></li>
+<li><a href="#section-13">.find()</a></li>
+<li><a href="#section-14">.append()</a></li>
+<li><a href="#section-15">.prepend()</a></li>
+<li><a href="#section-16">.before()</a></li>
+<li><a href="#section-17">.after()</a></li>
+<li><a href="#section-18">.remove()</a></li>
+<li><a href="#section-19">.attr()</a></li>
+<li><a href="#section-21">.addClass()</a></li>
+<li><a href="#section-22">.removeClass()</a></li>
+<li><a href="#section-23">.hasClass()</a></li>
+<li><a href="#section-24">.css()</a></li>
+<li><a href="#section-25">.text()</a></li>
+<li><a href="#section-26">.on()</a></li>
+<li><a href="#section-27">.click()</a></li>
 </ul>
 </li>
 </ul>
@@ -205,6 +208,22 @@ obj.hello
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
+              <h3 id="catquery-version">catQuery.version</h3>
+<p>catQuery library version.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    version: <span class="hljs-string">"1.1"</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
               <h3 id="catquery-create-html-">catQuery.create(<code>html</code>)</h3>
 <p>Turns a string into real HTML elements and returns it as a catQuery set.
 If the string <strong>doesn’t</strong> start with a <code>&lt;</code>, it will run as a shorthand
@@ -278,11 +297,11 @@ for <code>document.createElement</code> instead.</p>
         </li>
         
         
-        <li id="section-6">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <h3 id="catquery-one-selector-">catQuery.one(<code>selector</code>)</h3>
 <p>Find a single element (with <code>document.querySelector</code>) and create a
@@ -299,11 +318,11 @@ catQuery collection with it.</p>
         </li>
         
         
-        <li id="section-7">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <h3 id="catquery-each-object-callback-br-each-callback-">catQuery.each(<code>object</code>, <code>callback</code>) <br> .each(<code>callback</code>)</h3>
 <p>Loops through an array or object, or each element if used with a
@@ -358,11 +377,11 @@ array index, and the second being the value or the collection element.</p>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <h2 id="prototype">Prototype</h2>
 <p>Here are the properties and methods that will be added to each catQuery
@@ -377,11 +396,11 @@ collection that has been created.</p>
         </li>
         
         
-        <li id="section-9">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <h3 id="-length">.length</h3>
 <p>Number of elements in the current collection.</p>
@@ -397,11 +416,11 @@ collection that has been created.</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <h3 id="-node">.node</h3>
 <p>The first available node in the collection. Useful if you want to
@@ -416,11 +435,11 @@ quickly find a single element to pass to another library.</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <h3 id="-nodes">.nodes</h3>
 <p>An array with all nodes in the collection.</p>
@@ -435,11 +454,34 @@ quickly find a single element to pass to another library.</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h3 id="-find-selector-">.find(<code>selector</code>)</h3>
+<p>Find children of the elements in the collection, and returns these as
+a new catQuery collection.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    find: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">selector</span>) </span>{
+      <span class="hljs-keyword">var</span> results = [];
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        results = results.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(el.querySelectorAll(selector)));
+      });
+      <span class="hljs-keyword">return</span> catQuery(results);
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <h3 id="-append-element-">.append(<code>element</code>)</h3>
 <p>Inserts the specified element at the end of the first element in the
@@ -459,11 +501,11 @@ collection.</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <h3 id="-prepend-element-">.prepend(<code>element</code>)</h3>
 <p>Inserts the specified element as the first child of the first element
@@ -483,11 +525,11 @@ in the collection.</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <h3 id="-before-element-">.before(<code>element</code>)</h3>
 <p>Inserts the specified element before the first element in the collection.</p>
@@ -506,11 +548,11 @@ in the collection.</p>
         </li>
         
         
-        <li id="section-15">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <h3 id="-after-element-">.after(<code>element</code>)</h3>
 <p>Inserts the specified element after the first element in the collection.</p>
@@ -529,11 +571,11 @@ in the collection.</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <h3 id="-remove-">.remove()</h3>
 <p>Removes each element in the collection from the DOM.</p>
@@ -553,11 +595,11 @@ in the collection.</p>
         </li>
         
         
-        <li id="section-17">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <h3 id="-attr-name-value-br-attr-object-">.attr(<code>name</code>, <code>value</code>) <br> .attr(<code>object</code>)</h3>
 <p>Sets one or more attributes to all elements in the collection. You can
@@ -592,11 +634,11 @@ an object where keys are attribute names and values are values.</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <h3 id="-attr-name-">.attr(<code>name</code>)</h3>
 <p>If you only send a string parameter, catQuery will return the
@@ -615,11 +657,11 @@ attribute from the first element in the collection.</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <h3 id="-addclass-name-">.addClass(<code>name</code>)</h3>
 <p>Adds a class to each element in the collection.</p>
@@ -638,11 +680,11 @@ attribute from the first element in the collection.</p>
         </li>
         
         
-        <li id="section-20">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <h3 id="-removeclass-name-">.removeClass(<code>name</code>)</h3>
 <p>Removes the class from each element in the collection.</p>
@@ -661,11 +703,11 @@ attribute from the first element in the collection.</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <h3 id="-hasclass-name-">.hasClass(<code>name</code>)</h3>
 <p>Returns a boolean that’s true if any of the elements in the collection
@@ -689,11 +731,11 @@ has the queried class.</p>
         </li>
         
         
-        <li id="section-22">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <h3 id="-css-name-value-br-css-object-">.css(<code>name</code>, <code>value</code>) <br> .css(<code>object</code>)</h3>
 <p>Adds one or multiple styles to the elements in the collection.</p>
@@ -728,11 +770,33 @@ cross-browser support of style names.</em></p>
         </li>
         
         
-        <li id="section-23">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h3 id="-text-string-">.text(<code>string</code>)</h3>
+<p>Set the text content of all elements in the collection.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    text: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">string</span>) </span>{
+      <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
+        el.innerHTML = <span class="hljs-string">""</span>;
+        el.appendChild(<span class="hljs-built_in">document</span>.createTextNode(string));
+      });
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <h3 id="-on-eventname-callback-">.on(<code>eventName</code>, <code>callback</code>)</h3>
 <p>Adds an event listener to each element in the collection.</p>
@@ -754,11 +818,11 @@ cross-browser support of style names.</em></p>
         </li>
         
         
-        <li id="section-24">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <h3 id="-click-callback-">.click(<code>callback</code>)</h3>
 <p>Alias for <code>.on(&#39;click&#39;, callback)</code></p>
@@ -777,11 +841,11 @@ cross-browser support of style names.</em></p>
         </li>
         
         
-        <li id="section-25">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <h3 id="catquery-fn-init-element-">catQuery.fn.init(<code>element</code>)</h3>
 <p>This is the constructor used by catQuery() when creating a collection.
@@ -812,11 +876,11 @@ But please don’t use this. It would kinda kill the point of catQuery.</p>
         </li>
         
         
-        <li id="section-26">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>Finally, we turn the catQuery variable into a global, so you can actually
 use it.</p>

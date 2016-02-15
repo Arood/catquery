@@ -9,26 +9,29 @@
 // * [catQuery()](#section-2)
 // * **[Core](#section-3)**
 //   * [catQuery.extend()](#section-4)
-//   * [catQuery.create()](#section-5)
-//   * [catQuery.one()](#section-6)
-//   * [catQuery.each()](#section-7)
-//   * [.each()](#section-7)
-// * **[Prototype](#section-8)**
-//   * [.length](#section-9)
-//   * [.node](#section-10)
-//   * [.nodes](#section-11)
-//   * [.append()](#section-12)
-//   * [.prepend()](#section-13)
-//   * [.before()](#section-14)
-//   * [.after()](#section-15)
-//   * [.remove()](#section-16)
-//   * [.attr()](#section-17)
-//   * [.addClass()](#section-19)
-//   * [.removeClass()](#section-20)
-//   * [.hasClass()](#section-21)
-//   * [.css()](#section-22)
-//   * [.on()](#section-23)
-//   * [.click()](#section-24)
+//   * [catQuery.version](#section-5)
+//   * [catQuery.create()](#section-6)
+//   * [catQuery.one()](#section-7)
+//   * [catQuery.each()](#section-8)
+//   * [.each()](#section-8)
+// * **[Prototype](#section-9)**
+//   * [.length](#section-10)
+//   * [.node](#section-11)
+//   * [.nodes](#section-12)
+//   * [.find()](#section-13)
+//   * [.append()](#section-14)
+//   * [.prepend()](#section-15)
+//   * [.before()](#section-16)
+//   * [.after()](#section-17)
+//   * [.remove()](#section-18)
+//   * [.attr()](#section-19)
+//   * [.addClass()](#section-21)
+//   * [.removeClass()](#section-22)
+//   * [.hasClass()](#section-23)
+//   * [.css()](#section-24)
+//   * [.text()](#section-25)
+//   * [.on()](#section-26)
+//   * [.click()](#section-27)
 //
 
 (function(document, undefined) {
@@ -142,6 +145,10 @@
   };
 
   catQuery.extend({
+
+    // ### catQuery.version
+    // catQuery library version.
+    version: "1.1",
 
     // ### catQuery.create(`html`)
     // Turns a string into real HTML elements and returns it as a catQuery set.
@@ -322,6 +329,16 @@
     // // gets the third element in the collection
     // ~~~
     nodes: [],
+    // ### .find(`selector`)
+    // Find children of the elements in the collection, and returns these as
+    // a new catQuery collection.
+    find: function(selector) {
+      var results = [];
+      this.each(function(i, el) {
+        results = results.concat(Array.prototype.slice.call(el.querySelectorAll(selector)));
+      });
+      return catQuery(results);
+    },
     // ### .append(`element`)
     // Inserts the specified element at the end of the first element in the
     // collection.
@@ -520,6 +537,15 @@
             } catch (e) {}
           });
         }
+      });
+      return this;
+    },
+    // ### .text(`string`)
+    // Set the text content of all elements in the collection.
+    text: function(string) {
+      this.each(function(i, el) {
+        el.innerHTML = "";
+        el.appendChild(document.createTextNode(string));
       });
       return this;
     },

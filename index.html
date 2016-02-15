@@ -20,9 +20,9 @@
 
   <div class="home-content">
 <pre class="intro"><code><span class="hljs-keyword">for</span><span> (</span><span class="hljs-keyword">var</span><span> i=</span><span class="hljs-number">0</span><span>; i&lt;</span><span class="hljs-number">20</span><span>; i++) {</span>
-  <span class="hljs-keyword">var</span><span> cat = $(</span><span class="hljs-string">'&lt;div class="cat"&gt;'</span><span>).css(randoms());</span>
-  <span>cat.node.innerText = </span><span class="hljs-string">"\uD83D\uDC31"</span><span>;</span>
-  <span>$(</span><span class="hljs-string">'body'</span><span>).append(cat);</span>
+  <span>$(</span><span class="hljs-string">'body'</span><span>).append(</span>
+    <span>$(</span><span class="hljs-string">'&lt;div class="cat"&gt;'</span><span>).css(randoms()).text(</span><span class="hljs-string">"\uD83D\uDC31"</span><span>);</span>
+  <span>);</span>
 <span>}</span><span> </span> </code></pre>
 
     <p>catQuery is a tiny library<sup>★</sup> that makes working with HTML less painful.</p>
@@ -116,9 +116,9 @@
       typer(typerSeq, function() {
 
         for (var i=0; i<20; i++) {
-          var cat = $('<div class="cat">').css(randoms());
-          cat.node.innerText = "\uD83D\uDC31";
-          $('body').append(cat);
+          $('body').append(
+            $('<div class="cat">').css(randoms()).text("\uD83D\uDC31")
+          );
         }
 
       })
