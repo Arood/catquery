@@ -469,7 +469,13 @@ a new catQuery collection.</p>
             <div class="content"><div class='highlight'><pre>    find: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">selector</span>) </span>{
       <span class="hljs-keyword">var</span> results = [];
       <span class="hljs-keyword">this</span>.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
-        results = results.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(el.querySelectorAll(selector)));
+        <span class="hljs-keyword">var</span> noId = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span> (!el.id) {
+          noId = <span class="hljs-literal">true</span>;
+          el.id = <span class="hljs-string">"catquerytmpid"</span>;
+        }
+        results = results.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">"#"</span>+el.id+<span class="hljs-string">" "</span>+selector)));
+        <span class="hljs-keyword">if</span> (noId) el.id = <span class="hljs-string">""</span>;
       });
       <span class="hljs-keyword">return</span> catQuery(results);
     },</pre></div></div>

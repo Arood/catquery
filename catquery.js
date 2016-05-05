@@ -335,7 +335,13 @@
     find: function(selector) {
       var results = [];
       this.each(function(i, el) {
-        results = results.concat(Array.prototype.slice.call(el.querySelectorAll(selector)));
+        var noId = false;
+        if (!el.id) {
+          noId = true;
+          el.id = "catquerytmpid";
+        }
+        results = results.concat(Array.prototype.slice.call(document.querySelectorAll("#"+el.id+" "+selector)));
+        if (noId) el.id = "";
       });
       return catQuery(results);
     },
