@@ -51,7 +51,7 @@ body {
 }
 
 .nav a {
-  font: 600 20px/80px 'Panton W01', sans-serif;
+  font: 600 20px/80px 'Core Sans DS W01', sans-serif;
   display: block;
   padding: 20px 50px;
   text-transform: uppercase;
@@ -85,7 +85,7 @@ a {
 .home-content .button {
   display: inline-block;
   padding: 20px;
-  font: 800 16px/16px 'Panton W01', sans-serif;
+  font: 600 16px/16px 'Core Sans DS W01', sans-serif;
   letter-spacing: 1px;
   margin: 0 5px;
   text-transform: uppercase;
@@ -126,7 +126,7 @@ li strong a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Panton W01', sans-serif;
+  font-family: 'Core Sans DS W01', sans-serif;
   line-height: 28px;
 }
 

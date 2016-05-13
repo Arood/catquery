@@ -474,7 +474,7 @@ a new catQuery collection.</p>
           noId = <span class="hljs-literal">true</span>;
           el.id = <span class="hljs-string">"catquerytmpid"</span>;
         }
-        results = results.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">"#"</span>+el.id+<span class="hljs-string">" "</span>+selector)));
+        results = results.concat(<span class="hljs-built_in">Array</span>.prototype.slice.call(el.querySelectorAll(<span class="hljs-string">"#"</span>+el.id+<span class="hljs-string">" "</span>+selector)));
         <span class="hljs-keyword">if</span> (noId) el.id = <span class="hljs-string">""</span>;
       });
       <span class="hljs-keyword">return</span> catQuery(results);

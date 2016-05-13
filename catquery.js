@@ -340,7 +340,7 @@
           noId = true;
           el.id = "catquerytmpid";
         }
-        results = results.concat(Array.prototype.slice.call(document.querySelectorAll("#"+el.id+" "+selector)));
+        results = results.concat(Array.prototype.slice.call(el.querySelectorAll("#"+el.id+" "+selector)));
         if (noId) el.id = "";
       });
       return catQuery(results);
